@@ -18,6 +18,9 @@ const listarBoxesSchema = z.object({
 
 router.get('/boxes', validate(listarBoxesSchema), boxController.listarBoxes);
 
+// --- GET /api/boxes/:id ---
+router.get('/boxes/:id', boxController.buscarBoxPorId);
+
 // --- POST /api/boxes ---
 const criarBoxSchema = z.object({
     body: z.object({
@@ -28,5 +31,19 @@ const criarBoxSchema = z.object({
 });
 
 router.post('/boxes', validate(criarBoxSchema), boxController.criarBox);
+
+// --- PUT /api/boxes/:id ---
+const atualizarBoxSchema = z.object({
+    body: z.object({
+        nome: z.string().min(3, "Nome deve ter ao menos 3 caracteres").optional(),
+        numeroBox: z.string().min(1, "Número do box é obrigatório").optional(),
+        categoriaId: z.string().uuid("categoria inválida").optional()
+    })
+});
+
+router.put('/boxes/:id', validate(atualizarBoxSchema), boxController.atualizarBox);
+
+// --- DELETE /api/boxes/:id ---
+router.delete('/boxes/:id', boxController.deletarBox)
 
 module.exports = router;
