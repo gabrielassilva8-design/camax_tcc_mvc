@@ -94,6 +94,7 @@ module.exports = {
     listarCategorias,
     listarBoxes,
     criarBox,
+    buscarBoxPorId,
     atualizarBox,
     deletarBox,
 };
